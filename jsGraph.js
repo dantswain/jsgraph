@@ -9,7 +9,6 @@ var jsGraph = (function(){
     
     var jsGraph = function() {
         this.nodes = new Array;
-        this.edges = new Array;
         this.addNode = addNode;
     };
 

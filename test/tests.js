@@ -3,7 +3,6 @@ test("jsGraph Constructor", function(){
 
     deepEqual(graph.constructor, jsGraph, "Creates an instance of jsGraph");
     deepEqual(graph.nodes.constructor, Array, "Has a node array");
-    deepEqual(graph.edges.constructor, Array, "Has edges");
 });
 
 test("Node Constructor", function(){
@@ -27,5 +26,4 @@ test("jsGraph.addNode", function(){
     graph.addNode(node);
     deepEqual(graph.nodes.length, 1, "Doesn't add a node twice");
     deepEqual(node.node_index, 0, "Doesn't change the node index on repeat adds");
-    
 });
