@@ -20,11 +20,19 @@ var jsGraph = (function(){
 })();
 
 jsGraph.Node = (function(){
+    var addNeighbor = function(other_node){
+        if((other_node != this) && (this.neighbors.indexOf(other_node) == -1)){
+            this.neighbors.push(other_node);
+        }
+        return this;
+    };
+
     var Node = function() {
         this.x = null;
         this.y = null;
         this.node_index = null;
         this.neighbors = new Array;
+        this.addNeighbor = addNeighbor;
     };
 
     Node.prototype = {

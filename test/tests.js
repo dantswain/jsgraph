@@ -27,3 +27,19 @@ test("jsGraph.addNode", function(){
     deepEqual(graph.nodes.length, 1, "Doesn't add a node twice");
     deepEqual(node.node_index, 0, "Doesn't change the node index on repeat adds");
 });
+
+test("jsGraph.Node.addNeighbor", function(){
+    var node0 = new jsGraph.Node();
+    var node1 = new jsGraph.Node();
+    node0.node_index = 0;
+    node1.node_index = 1;
+
+    var out = node0.addNeighbor(node1);
+
+    deepEqual(node0.neighbors, [node1], "Adds to the list of neighbors");
+    deepEqual(out, node0, "Returns the node for chaining");
+    deepEqual(node1.neighbors, [], "Does not add the reverse edge");
+
+    deepEqual(node0.addNeighbor(node0).neighbors, [node1], "Doesn't allow self loops");
+    deepEqual(node0.addNeighbor(node1).neighbors, [node1], "Doesn't allow duplicate edges");
+});
