@@ -43,3 +43,20 @@ test("jsGraph.Node.addNeighbor", function(){
     deepEqual(node0.addNeighbor(node0).neighbors, [node1], "Doesn't allow self loops");
     deepEqual(node0.addNeighbor(node1).neighbors, [node1], "Doesn't allow duplicate edges");
 });
+
+
+test("jsGraph.Node.eachNeighbor", function(){
+    var node0 = new jsGraph.Node();  node0.node_index = 0;
+    var node1 = new jsGraph.Node();  node1.node_index = 1;
+    var node2 = new jsGraph.Node();  node2.node_index = 2;
+
+    node0.addNeighbor(node1).addNeighbor(node2);
+
+    var accum = new Array;
+    var out = node0.eachNeighbor(function(neighbor){
+        accum.push(neighbor);
+    });
+
+    deepEqual(accum, [node1, node2], "Calls the callback for each neighbor");
+    deepEqual(out, node0, "Returns the node for chaining");
+});

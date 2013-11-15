@@ -27,12 +27,21 @@ jsGraph.Node = (function(){
         return this;
     };
 
+    var eachNeighbor = function(callback){
+        var ix;
+        for(ix = 0; ix < this.neighbors.length; ix++){
+            callback(this.neighbors[ix]);
+        }
+        return this;
+    };
+
     var Node = function() {
         this.x = null;
         this.y = null;
         this.node_index = null;
         this.neighbors = new Array;
         this.addNeighbor = addNeighbor;
+        this.eachNeighbor = eachNeighbor;
     };
 
     Node.prototype = {
