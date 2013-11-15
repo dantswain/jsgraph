@@ -6,10 +6,19 @@ var jsGraph = (function(){
         }
         return this;
     };
+
+    var eachNode = function(callback){
+        var ix;
+        for(ix = 0; ix < this.nodes.length; ix++){
+            callback(this.nodes[ix]);
+        }
+        return this;
+    };
     
     var jsGraph = function() {
         this.nodes = new Array;
         this.addNode = addNode;
+        this.eachNode = eachNode;
     };
 
     jsGraph.prototype = {

@@ -60,3 +60,17 @@ test("jsGraph.Node.eachNeighbor", function(){
     deepEqual(accum, [node1, node2], "Calls the callback for each neighbor");
     deepEqual(out, node0, "Returns the node for chaining");
 });
+
+test("jsGraph.eachNode", function(){
+    var graph = new jsGraph();
+
+    graph.addNode(new jsGraph.Node()).addNode(new jsGraph.Node()).addNode(new jsGraph.Node());
+
+    var accum = new Array;
+    var out = graph.eachNode(function(node){
+        accum.push(node.node_index);
+    });
+    
+    deepEqual(out, graph, "Returns the graph for chaining");
+    deepEqual(accum, [0, 1, 2], "Calls the callback for each node");
+});
