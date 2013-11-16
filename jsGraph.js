@@ -44,9 +44,18 @@ jsGraph.Node = (function(){
         return this;
     };
 
-    var Node = function() {
+    var Node = function(pos) {
         this.x = null;
         this.y = null;
+
+        if(pos !== undefined){
+            if(pos.x === undefined || pos.y === undefined) {
+                throw new Error("pos.x and pos.y must be defined");
+            }
+            this.x = pos.x;
+            this.y = pos.y;
+        }
+
         this.node_index = null;
         this.neighbors = new Array;
         this.addNeighbor = addNeighbor;

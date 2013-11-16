@@ -5,13 +5,26 @@ test("jsGraph Constructor", function(){
     deepEqual(graph.nodes.constructor, Array, "Has a node array");
 });
 
-test("Node Constructor", function(){
+test("Node Constructor - no arguments", function(){
     var node = new jsGraph.Node();
 
     deepEqual(node.x, null, "Has null x");
     deepEqual(node.y, null, "Has null y");
     deepEqual(node.node_index, null, "Has null node_index");
     deepEqual(node.neighbors.constructor, Array, "Has a neighbors array");
+});
+
+test("Node Constructor - position argument", function(){
+    var pos = {x: 0, y: 1};
+    var node = new jsGraph.Node(pos);
+
+    deepEqual(node.x, 0, "Has the x position set");
+    deepEqual(node.y, 1, "Has the y position set");
+    deepEqual(node.node_index, null, "Has null node_index");
+    deepEqual(node.neighbors.constructor, Array, "Has a neighbors array");
+
+    raises(function(){new jsGraph.Node({x: 0})}, Error, "Throws an error if the y position is not specified");
+    raises(function(){new jsGraph.Node({y: 0})}, Error, "Throws an error if the x position is not specified");
 });
 
 test("jsGraph.addNode", function(){
