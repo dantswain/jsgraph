@@ -15,7 +15,7 @@ var stage = new Kinetic.Stage({
     height: $('#container').height()
 });
 // our graph
-var graph = new jsGraph();
+var graph = new jsGraph.Graph();
 
 (function(){
     // Kinetic variables set up
