@@ -31,10 +31,7 @@ var graph = new jsGraph();
             $(this).text("Click to stop adding nodes");
             // add callback to stage
             $(stage.getContent()).click(function(event){
-                var pos = getMousePosition(this, event);
-                var node = new jsGraph.Node();
-                node.x = pos.x;
-                node.y = pos.y
+                var node = new jsGraph.Node(getMousePosition(this, event));
                 graph.addNode(node);
             });
         } else {
