@@ -17,12 +17,9 @@ var stage = new Kinetic.Stage({
 // our graph
 var graph = new jsGraph.Graph();
 
-(function(){
-    // Kinetic variables set up
-    var node_layer = new Kinetic.Layer();
-    stage.add(node_layer);
+var kinetic_graph = new KineticGraph(stage, graph);
 
-    
+(function(){
     // callbacks
     $("#add-nodes").click(function() {
         $(this).toggleClass("pure-button-active");
@@ -31,8 +28,7 @@ var graph = new jsGraph.Graph();
             $(this).text("Click to stop adding nodes");
             // add callback to stage
             $(stage.getContent()).click(function(event){
-                var node = new jsGraph.Node(getMousePosition(this, event));
-                graph.addNode(node);
+                kinetic_graph.addNode(getMousePosition(this, event));
             });
         } else {
             $(this).text("Click to add nodes");
