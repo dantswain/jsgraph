@@ -1,5 +1,9 @@
 var jsGraph = (function(){
-    var addNode = function(node){
+    this.Graph = function(){
+        this.nodes = [];
+    };
+
+    this.Graph.prototype.addNode = function(node){
         if(node.node_index == null) {
             node.node_index = this.nodes.length;
             this.nodes.push(node);
@@ -7,44 +11,15 @@ var jsGraph = (function(){
         return this;
     };
 
-    var eachNode = function(callback){
+    this.Graph.prototype.eachNode = function(callback){
         var ix;
         for(ix = 0; ix < this.nodes.length; ix++){
             callback(this.nodes[ix]);
         }
         return this;
     };
-    
-    var jsGraph = function() {
-        this.nodes = new Array;
-        this.addNode = addNode;
-        this.eachNode = eachNode;
-    };
 
-    jsGraph.prototype = {
-        constructor: jsGraph
-    };
-
-    return jsGraph;
-})();
-
-jsGraph.Node = (function(){
-    var addNeighbor = function(other_node){
-        if((other_node != this) && (this.neighbors.indexOf(other_node) == -1)){
-            this.neighbors.push(other_node);
-        }
-        return this;
-    };
-
-    var eachNeighbor = function(callback){
-        var ix;
-        for(ix = 0; ix < this.neighbors.length; ix++){
-            callback(this.neighbors[ix]);
-        }
-        return this;
-    };
-
-    var Node = function(pos) {
+    this.Node = function(pos){
         this.x = null;
         this.y = null;
 
@@ -58,13 +33,23 @@ jsGraph.Node = (function(){
 
         this.node_index = null;
         this.neighbors = new Array;
-        this.addNeighbor = addNeighbor;
-        this.eachNeighbor = eachNeighbor;
     };
 
-    Node.prototype = {
-        constructor: Node
+    this.Node.prototype.addNeighbor = function(other_node){
+        if((other_node != this) && (this.neighbors.indexOf(other_node) == -1)){
+            this.neighbors.push(other_node);
+        }
+        return this;
     };
 
-    return Node;
+    this.Node.prototype.eachNeighbor = function(callback){
+        var ix;
+        for(ix = 0; ix < this.neighbors.length; ix++){
+            callback(this.neighbors[ix]);
+        }
+        return this;
+    };
+
+    return this;
 })();
+

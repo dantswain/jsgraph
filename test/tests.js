@@ -1,7 +1,7 @@
-test("jsGraph Constructor", function(){
-    var graph = new jsGraph();
+test("jsGraph.Graph Constructor", function(){
+    var graph = new jsGraph.Graph();
 
-    deepEqual(graph.constructor, jsGraph, "Creates an instance of jsGraph");
+    deepEqual(graph.constructor, jsGraph.Graph, "Creates an instance of jsGraph");
     deepEqual(graph.nodes.constructor, Array, "Has a node array");
 });
 
@@ -28,7 +28,7 @@ test("Node Constructor - position argument", function(){
 });
 
 test("jsGraph.addNode", function(){
-    var graph = new jsGraph();
+    var graph = new jsGraph.Graph();
     var node = new jsGraph.Node();
 
     var out = graph.addNode(node);
@@ -75,7 +75,7 @@ test("jsGraph.Node.eachNeighbor", function(){
 });
 
 test("jsGraph.eachNode", function(){
-    var graph = new jsGraph();
+    var graph = new jsGraph.Graph();
 
     graph.addNode(new jsGraph.Node()).addNode(new jsGraph.Node()).addNode(new jsGraph.Node());
 
