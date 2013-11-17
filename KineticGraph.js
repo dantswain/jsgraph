@@ -70,16 +70,17 @@ KineticGraph.prototype.pointsForArrow = function(from, to){
     var length = Math.sqrt((to.x - from.x)*(to.x - from.x) + (to.y - from.y)*(to.y - from.y));
     var head_width = 2*this.circle_radius;
     var head_length = 2*this.circle_radius;
+    var fudge = 1.25;
     var cos = Math.cos(angle);
     var sin = Math.sin(angle);
-    var tip_x = from.x + (length - this.circle_radius)*cos;
-    var tip_y = from.y + (length - this.circle_radius)*sin;
-    var p_1_x = from.x + (length - this.circle_radius - head_length)*cos;
-    var p_1_y = from.y + (length - this.circle_radius - head_length)*sin;
-    var p_2_x = p_1_x - 0.5*head_length*sin;
-    var p_2_y = p_1_y + 0.5*head_length*cos;
-    var p_3_x = p_1_x + 0.5*head_length*sin;
-    var p_3_y = p_1_y - 0.5*head_length*cos;
+    var tip_x = from.x + (length - fudge*this.circle_radius)*cos;
+    var tip_y = from.y + (length - fudge*this.circle_radius)*sin;
+    var p_1_x = from.x + (length - fudge*this.circle_radius - head_length)*cos;
+    var p_1_y = from.y + (length - fudge*this.circle_radius - head_length)*sin;
+    var p_2_x = p_1_x - 0.5*head_width*sin;
+    var p_2_y = p_1_y + 0.5*head_width*cos;
+    var p_3_x = p_1_x + 0.5*head_width*sin;
+    var p_3_y = p_1_y - 0.5*head_width*cos;
 
     return [from.x, from.y, p_1_x, p_1_y, p_2_x, p_2_y, tip_x, tip_y,
             p_3_x, p_3_y, p_1_x, p_1_y, from.x, from.y];
