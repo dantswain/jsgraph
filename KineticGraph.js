@@ -54,7 +54,7 @@ KineticGraph.prototype.addEdge = function(from, to) {
     var before_edge_count = from_node.neighbors.length;
     from_node.addNeighbor(to_node);
     if(from_node.neighbors.length > before_edge_count){
-        var line = new Kinetic.Line({
+        var line = new Kinetic.Polygon({
             points: this.pointsForArrow(from_node, to_node),
             stroke: 'green', fill: 'green'
         });
