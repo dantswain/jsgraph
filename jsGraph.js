@@ -19,6 +19,14 @@ var jsGraph = (function(){
         return this;
     };
 
+    this.Graph.prototype.toTable = function(doc, klass, id){
+        var tbl = doc.createElement('table')
+        tbl.setAttribute('class', klass);
+        tbl.setAttribute('id', id);
+
+        return tbl;
+    };
+
     this.Node = function(pos){
         this.x = null;
         this.y = null;
