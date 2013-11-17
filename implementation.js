@@ -37,5 +37,11 @@ var kinetic_graph = new KineticGraph(stage, graph);
         };
     });
 
+    $(stage.getContent()).mousemove(function(event){
+        kinetic_graph.doDragging(getMousePosition(this, event));
+    }).mouseup(function(event){
+        kinetic_graph.finishDragging();
+    });
+
 })();
 
