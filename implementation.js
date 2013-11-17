@@ -29,6 +29,8 @@ var kinetic_graph = new KineticGraph(stage, graph);
             // add callback to stage
             $(stage.getContent()).click(function(event){
                 kinetic_graph.addNode(getMousePosition(this, event));
+                var num_nodes = kinetic_graph.graph.nodes.length;
+                $("#num_nodes").text(num_nodes + (num_nodes > 1 ? ' nodes' : ' node'));
             });
         } else {
             $(this).text("Click to add nodes");
