@@ -4,12 +4,12 @@
     <link rel="stylesheet" href="pure-min.css">
     <style>
       body {
-        margin: 0px;
+        margin: 20px;
         padding: 0px;
       }
 
       #buttons {
-        margin: 10px;
+        margin-bottom: 10px;
       }
 
       .pure-button {
@@ -21,18 +21,28 @@
         width: 400px;
         height: 400px;
       }
+
+      #all-the-things {
+      }
     </style>
   </head>
   <body>
-    <div id="buttons">
-    <a class="pure-button" href="#" id="add-nodes">Click to add nodes</a>
+    <div>
+      <h2>jsGraph</h2>
+      <p>A thingy for playing with graphs and javascript. Code on <a href="https://github.com/dantswain/jsgraph">github</a>.</p>
+      <p>Click the button to begin adding nodes.  Click in the box to place a node there.  Draw lines between the nodes to add graph edges.</p>
     </div>
-    <div id="container"></div>
-    <script src="jquery-2.0.3.min.js"></script>
-    <script src="kinetic-v4.7.4.min.js"></script>
-    <script src="jsGraph.js" defer></script>
-    <script src="KineticGraph.js" defer></script>
-    <script src="implementation.js" defer></script>
+    <div id="all-the-things">
+      <div id="buttons">
+        <a class="pure-button" href="#" id="add-nodes">Click to add nodes</a>
+      </div>
+      <div id="container"></div>
+      <script src="jquery-2.0.3.min.js"></script>
+      <script src="kinetic-v4.7.4.min.js"></script>
+      <script src="jsGraph.js" defer></script>
+      <script src="KineticGraph.js" defer></script>
+      <script src="implementation.js" defer></script>
+    </div>
   </body>
 </html>
-      
+
