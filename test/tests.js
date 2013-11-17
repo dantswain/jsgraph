@@ -5,6 +5,36 @@ test("jsGraph.Graph Constructor", function(){
     deepEqual(graph.nodes.constructor, Array, "Has a node array");
 });
 
+test("jsGraph.Graph.getLaplacian", function(){
+    var empty_graph = new jsGraph.Graph();
+    deepEqual(empty_graph.getLaplacian(), [], "Returns an empty array for an empty Graph");
+
+    var graph = new jsGraph.Graph();
+    var node0 = new jsGraph.Node();
+    graph.addNode(node0);
+    deepEqual(graph.getLaplacian(), [[0]], "Returns a single-element zero matrix for a graph with one node");
+
+    var node1 = new jsGraph.Node();
+    graph.addNode(node1);
+    deepEqual(graph.getLaplacian(), [[0, 0],[0, 0]], "Returns a matrix of zeros for a graph with no edges.");
+
+    node0.addNeighbor(node1);
+    deepEqual(graph.getLaplacian(), [[1, -1], [0, 0]], "Handles a single edge");
+
+    node1.addNeighbor(node0);
+    deepEqual(graph.getLaplacian(), [[1, -1], [-1, 1]], "Handles a simple two-node graph");
+
+    var node2 = new jsGraph.Node();
+    graph.addNode(node2);
+    deepEqual(graph.getLaplacian(), [[1, -1, 0], [-1, 1, 0], [0, 0, 0]],
+              "Handles adding a disconnected node");
+
+    node0.addNeighbor(node2);
+    deepEqual(graph.getLaplacian(), [[1, -0.5, -0.5], [-1, 1, 0], [0, 0, 0]],
+              "Row normalizes");
+});
+
+
 test("Node Constructor - no arguments", function(){
     var node = new jsGraph.Node();
 

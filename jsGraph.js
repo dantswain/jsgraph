@@ -19,6 +19,29 @@ var jsGraph = (function(){
         return this;
     };
 
+    this.Graph.prototype.getLaplacian = function(){
+        var lap = [];
+        var num_nodes = this.nodes.length;
+        var proto_row = [];
+        for(var ix = 0; ix < num_nodes; ix++){
+            proto_row.push(0);
+        };
+
+        this.eachNode(function(node){
+            var row = proto_row.slice(0);
+            var num_neighbors = node.neighbors.length;
+            node.eachNeighbor(function(neighbor){
+                row[neighbor.node_index] = -1/num_neighbors;
+            });
+            if(node.neighbors.length > 0){
+                row[node.node_index] = 1;
+            };
+            lap.push(row);
+        });
+
+        return lap;
+    };
+
     this.Graph.prototype.toTable = function(doc, klass, id){
         var tbl = doc.createElement('table')
         tbl.setAttribute('class', klass);
