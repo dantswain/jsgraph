@@ -4,9 +4,9 @@ var KineticGraph = function(stage, graph){
     this.graph = graph;
     this.stage = stage;
     this.dragging = {from: null, to: null};
-    this.drag_line = new Kinetic.Line({
+    this.drag_line = new Kinetic.Polygon({
         points: [0, 0, 0, 0],
-        stroke: 'red'
+        stroke: 'red', fill: 'red'
     });
     this.circle_radius = 6;
 
@@ -31,7 +31,7 @@ KineticGraph.prototype.draw = function(){
 KineticGraph.prototype.doDragging = function(pos){
     if(this.dragging.from !== null){
         var from_node = this.graph.nodes[this.dragging.from];
-        this.drag_line.setPoints([from_node.x, from_node.y, pos.x, pos.y]);
+        this.drag_line.setPoints(this.pointsForArrow(from_node, pos, 0));
         this.drag_layer.draw();
     }
     return this;
@@ -55,7 +55,7 @@ KineticGraph.prototype.addEdge = function(from, to) {
     from_node.addNeighbor(to_node);
     if(from_node.neighbors.length > before_edge_count){
         var line = new Kinetic.Polygon({
-            points: this.pointsForArrow(from_node, to_node),
+            points: this.pointsForArrow(from_node, to_node, this.circle_radius),
             stroke: 'green', fill: 'green'
         });
         from_node.edges.push(line);
@@ -65,7 +65,7 @@ KineticGraph.prototype.addEdge = function(from, to) {
     return this;
 };
 
-KineticGraph.prototype.pointsForArrow = function(from, to){
+KineticGraph.prototype.pointsForArrow = function(from, to, backoff_radius){
     var angle = Math.atan2(to.y - from.y, to.x - from.x);
     var length = Math.sqrt((to.x - from.x)*(to.x - from.x) + (to.y - from.y)*(to.y - from.y));
     var head_width = 2*this.circle_radius;
@@ -73,10 +73,10 @@ KineticGraph.prototype.pointsForArrow = function(from, to){
     var fudge = 1.25;
     var cos = Math.cos(angle);
     var sin = Math.sin(angle);
-    var tip_x = from.x + (length - fudge*this.circle_radius)*cos;
-    var tip_y = from.y + (length - fudge*this.circle_radius)*sin;
-    var p_1_x = from.x + (length - fudge*this.circle_radius - head_length)*cos;
-    var p_1_y = from.y + (length - fudge*this.circle_radius - head_length)*sin;
+    var tip_x = from.x + (length - fudge*backoff_radius)*cos;
+    var tip_y = from.y + (length - fudge*backoff_radius)*sin;
+    var p_1_x = tip_x - head_length*cos;
+    var p_1_y = tip_y - head_length*sin;
     var p_2_x = p_1_x - 0.5*head_width*sin;
     var p_2_y = p_1_y + 0.5*head_width*cos;
     var p_3_x = p_1_x + 0.5*head_width*sin;
