@@ -51,6 +51,7 @@ var jsGraph = (function(){
         // insertRow means we have to go backwards
         for(var row_ix = lap.length-1; row_ix >= 0; row_ix--){
             var tr = tbl.insertRow();
+            tr.setAttribute('id', id + '-row-' + row_ix);
             // same with insertCell
             for(var col_ix = lap[row_ix].length - 1; col_ix >= 0; col_ix--){
                 var td = tr.insertCell();

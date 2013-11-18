@@ -87,7 +87,7 @@ KineticGraph.prototype.pointsForArrow = function(from, to, backoff_radius){
             
 };
 
-KineticGraph.prototype.addCircleToNode = function(node){
+KineticGraph.prototype.addCircleToNode = function(node, callbacks){
     var kg = this;
     var circle = new Kinetic.Circle({
         x: node.x, y: node.y, radius: this.circle_radius,
@@ -96,10 +96,16 @@ KineticGraph.prototype.addCircleToNode = function(node){
     });
     circle.on('mouseover', function(){
         this.setStroke('black');
+        if(callbacks !== undefined && callbacks.mouseover !== undefined){
+            callbacks.mouseover(node);
+        };
         kg.draw();
     });
     circle.on('mouseout', function(){
         this.setStroke('blue');
+        if(callbacks != undefined && callbacks.mouseout !== undefined){
+            callbacks.mouseout(node);
+        };
         kg.draw();
     });
     circle.on('mousedown', function(){
@@ -113,9 +119,9 @@ KineticGraph.prototype.addCircleToNode = function(node){
     return node;
 };
 
-KineticGraph.prototype.addNode = function(pos){
+KineticGraph.prototype.addNode = function(pos, callbacks){
     var node = new jsGraph.Node(pos);
-    this.addCircleToNode(node);
+    this.addCircleToNode(node, callbacks);
     node.edges = [];
     this.graph.addNode(node);
     this.draw();
