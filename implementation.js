@@ -30,12 +30,14 @@ var kinetic_graph = new KineticGraph(stage, graph);
             $(stage.getContent()).click(function(event){
                 kinetic_graph.addNode(getMousePosition(this, event), {
                     mouseover: function(node){
-                        $("#laplacian-row-" + node.node_index).addClass("row-hover");
                         highlightColumn("#laplacian", node.node_index);
+                        $("#laplacian-row-" + node.node_index).addClass("row-hover");
+                        highlightCell("#laplacian", node.node_index, node.node_index);
                     },
                     mouseout: function(node){
-                        $("#laplacian-row-" + node.node_index).removeClass("row-hover");
                         unHighlightColumn("#laplacian", node.node_index);
+                        $("#laplacian-row-" + node.node_index).removeClass("row-hover");
+                        unHighlightCell("#laplacian", node.node_index, node.node_index);
                     }
                 });
                 var num_nodes = kinetic_graph.graph.nodes.length;
@@ -70,6 +72,14 @@ var kinetic_graph = new KineticGraph(stage, graph);
         eachRowTd(table, index, function(td){
             $(td).removeClass("col-hover");
         });
+    };
+
+    function highlightCell(table, row_index, col_index){
+        $(table).find("tr:eq(" + row_index + ") td:eq(" + col_index + ")").addClass("both-hover");
+    };
+
+    function unHighlightCell(table, row_index, col_index){
+        $(table).find("tr:eq(" + row_index + ") td:eq(" + col_index + ")").removeClass("both-hover");
     };
 
     function eachRowTd(table, col_index, callback){
