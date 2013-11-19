@@ -31,9 +31,11 @@ var kinetic_graph = new KineticGraph(stage, graph);
                 kinetic_graph.addNode(getMousePosition(this, event), {
                     mouseover: function(node){
                         $("#laplacian-row-" + node.node_index).addClass("row-hover");
+                        highlightColumn("#laplacian", node.node_index);
                     },
                     mouseout: function(node){
                         $("#laplacian-row-" + node.node_index).removeClass("row-hover");
+                        unHighlightColumn("#laplacian", node.node_index);
                     }
                 });
                 var num_nodes = kinetic_graph.graph.nodes.length;
@@ -57,6 +59,26 @@ var kinetic_graph = new KineticGraph(stage, graph);
             kinetic_graph.graph.toTable(document, 'matrix', 'laplacian')
         );
     });
+
+    function highlightColumn(table, index){
+        eachRowTd(table, index, function(td){
+            $(td).addClass("col-hover");
+        });
+    };
+
+    function unHighlightColumn(table, index){
+        eachRowTd(table, index, function(td){
+            $(td).removeClass("col-hover");
+        });
+    };
+
+    function eachRowTd(table, col_index, callback){
+        $(table).find("td").each(function(ix, td){
+            if($(td).index() === col_index){
+                callback(td);
+            };
+        });
+    };
 
 })();
 
