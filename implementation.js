@@ -42,9 +42,7 @@ var kinetic_graph = new KineticGraph(stage, graph);
                 });
                 var num_nodes = kinetic_graph.graph.nodes.length;
                 $("#num_nodes").text(num_nodes + (num_nodes > 1 ? ' nodes' : ' node'));
-                $("#laplacian_container").html(
-                    kinetic_graph.graph.toTable(document, 'matrix', 'laplacian')
-                );
+		showLaplacian();
             });
         } else {
             $(this).text("Click to add nodes");
@@ -57,9 +55,7 @@ var kinetic_graph = new KineticGraph(stage, graph);
         kinetic_graph.doDragging(getMousePosition(this, event));
     }).mouseup(function(event){
         kinetic_graph.finishDragging();
-        $("#laplacian_container").html(
-            kinetic_graph.graph.toTable(document, 'matrix', 'laplacian')
-        );
+	showLaplacian();
     });
 
     function highlightColumn(table, index){
@@ -88,6 +84,13 @@ var kinetic_graph = new KineticGraph(stage, graph);
                 callback(td);
             };
         });
+    };
+
+    function showLaplacian(){
+	$("#laplacian_label").show();
+        $("#laplacian_container").html(
+            kinetic_graph.graph.toTable(document, 'matrix', 'laplacian')
+        );
     };
 
 })();
